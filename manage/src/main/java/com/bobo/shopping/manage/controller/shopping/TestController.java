@@ -3,6 +3,7 @@ package com.bobo.shopping.manage.controller.shopping;
 import com.bobo.shopping.manage.controller.BaseController;
 import com.bobo.shopping.manage.dao.shopping.bean.Test;
 import com.bobo.shopping.manage.service.shopping.TestService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @create 2018-09-23 20:01
  **/
 @Controller
+@Slf4j
 @RequestMapping(value = "test")
 public class TestController extends BaseController {
     @Autowired
