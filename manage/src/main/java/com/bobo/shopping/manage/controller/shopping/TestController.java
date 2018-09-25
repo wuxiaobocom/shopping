@@ -5,6 +5,7 @@ import com.bobo.shopping.manage.dao.shopping.bean.Test;
 import com.bobo.shopping.manage.service.shopping.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,5 +31,14 @@ public class TestController extends BaseController {
     @ResponseBody
     public Test getTestInfo(Integer id) {
         return testService.getTestInfo(id);
+    }
+
+    /**
+     * 去test表的列表页面
+     * @return
+     */
+    @GetMapping(value = "/toTestListPage")
+    public String toTestListPage() {
+        return "/pages/member/list";
     }
 }

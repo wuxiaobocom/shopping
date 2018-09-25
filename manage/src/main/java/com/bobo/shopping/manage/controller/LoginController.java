@@ -36,6 +36,6 @@ public class LoginController {
 
     @GetMapping(value = "/welcome")
     public String toWelcomePage () {
-        return "pages/welcome";
+        return "welcome";
     }
 }
