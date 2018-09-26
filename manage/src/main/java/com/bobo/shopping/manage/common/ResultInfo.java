@@ -19,14 +19,14 @@ import java.util.List;
 public class ResultInfo {
     private Integer code;
 
-    private Integer total;
+    private Integer count;
 
     private List<?> data;
 
     private String message;
 
-    public static ResultInfo success(Integer total, List<?> rows) {
-        return new ResultInfo(responseCode.SUCCESS,total,rows,"");
+    public static ResultInfo success(Integer count, List<?> rows) {
+        return new ResultInfo(responseCode.SUCCESS,count,rows,"");
     }
 
     public static ResultInfo fail () {
