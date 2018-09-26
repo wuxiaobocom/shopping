@@ -1,15 +1,16 @@
 package com.bobo.shopping.manage.controller.shopping;
 
+import com.bobo.shopping.manage.common.ResultInfo;
 import com.bobo.shopping.manage.controller.BaseController;
 import com.bobo.shopping.manage.dao.shopping.bean.Test;
 import com.bobo.shopping.manage.service.shopping.TestService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * test表
@@ -41,6 +42,17 @@ public class TestController extends BaseController {
      */
     @GetMapping(value = "/toTestListPage")
     public String toTestListPage() {
-        return "/pages/member/list";
+        return "testListPage";
+    }
+
+    @GetMapping(value = "/testListData",produces="application/json;charset=UTF-8")
+    @ResponseBody
+    public ResultInfo getTestListData (@RequestParam Integer page, @RequestParam Integer limit,
+                                       @RequestParam (required = false) String name){
+       Map<String,Object> map = testService.initParams(page,limit,name);
+       Integer count =  testService.getCount(map);
+       List<Map<String,Object>> rows = testService.getListByPage(map);
+       ResultInfo resultInfo = ResultInfo.success(count, rows);
+       return resultInfo;
     }
 }

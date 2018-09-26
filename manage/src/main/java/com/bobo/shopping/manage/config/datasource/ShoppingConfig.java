@@ -3,10 +3,12 @@ package com.bobo.shopping.manage.config.datasource;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.bobo.shopping.manage.config.entity.datasource.ShoppingDataSourceProperties;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.hibernate.cfg.ImprovedNamingStrategy;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -14,6 +16,8 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * shopping数据库
@@ -79,4 +83,16 @@ public class ShoppingConfig {
         return sessionFactory.getObject();
     }
 
+    @Value("${spring.jpa.hibernate.ddl-auto}")
+    String dll;
+    @Value("${spring.jpa.show-sql}")
+    String showSql;
+
+    private Map<String, Object> buildProperties() {
+        Map<String, Object> properties = new HashMap<String, Object>();
+        properties.put("hibernate.ejb.naming_strategy", ImprovedNamingStrategy.class.getName());
+        properties.put("hibernate.hbm2ddl.auto", dll);
+        properties.put("hibernate.show_sql", showSql);
+        return properties;
+    }
 }

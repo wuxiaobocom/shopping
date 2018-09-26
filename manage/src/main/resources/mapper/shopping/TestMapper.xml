@@ -15,6 +15,28 @@
     from test
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="getCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select count(*)
+    from test
+    <where>
+      1=1
+      <if test="null != name and '' != name">
+          and `name` like #{name}
+      </if>
+    </where>
+  </select>
+  <select id="getListByPage" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+    <include refid="Base_Column_List" />
+    from test
+    <where>
+      1=1
+      <if test="null != name and '' != name">
+        and `name` like #{name}
+      </if>
+    </where>
+    limit #{page},#{limit}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from test
     where id = #{id,jdbcType=INTEGER}
