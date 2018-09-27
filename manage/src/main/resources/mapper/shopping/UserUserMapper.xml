@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bobo.shopping.manage.dao.shopping.mapper.UserUserMapper" >
+  <resultMap id="BaseResultMap" type="com.bobo.shopping.manage.dao.shopping.bean.UserUser" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="cid" property="cid" jdbcType="CHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="TINYINT" />
+    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="last_name" property="lastName" jdbcType="VARCHAR" />
+    <result column="first_name" property="firstName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, cid, phone, nick_name, gender, img_url, age, email, create_time, status, last_name,
+    first_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="getUserUserByPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user_user
+    <where>
+      1=1
+      <if test="null != name and '' != name">
+        and `name` like #{name}
+      </if>
+      <if test="null != phone and '' != phone">
+        and phone = #{phone}
+      </if>
+    </where>
+    limit #{page},#{limit}
+  </select>
+  <select id="getUserUserCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+    select count(*)
+    from user_user
+    <where>
+      1=1
+      <if test="null != name and '' != name">
+        and `name` like #{name}
+      </if>
+      <if test="null != phone and '' != phone">
+        and phone = #{phone}
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bobo.shopping.manage.dao.shopping.bean.UserUser">
+    insert into user_user (id, cid, phone,
+      nick_name, gender, img_url,
+      age, email, create_time,
+      status, last_name, first_name
+      )
+    values (#{id,jdbcType=INTEGER}, #{cid,jdbcType=CHAR}, #{phone,jdbcType=VARCHAR},
+      #{nickName,jdbcType=VARCHAR}, #{gender,jdbcType=TINYINT}, #{imgUrl,jdbcType=VARCHAR},
+      #{age,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+      #{status,jdbcType=INTEGER}, #{lastName,jdbcType=VARCHAR}, #{firstName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bobo.shopping.manage.dao.shopping.bean.UserUser" >
+    insert into user_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="cid != null" >
+        cid,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="nickName != null" >
+        nick_name,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="imgUrl != null" >
+        img_url,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="lastName != null" >
+        last_name,
+      </if>
+      <if test="firstName != null" >
+        first_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="cid != null" >
+        #{cid,jdbcType=CHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=TINYINT},
+      </if>
+      <if test="imgUrl != null" >
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="lastName != null" >
+        #{lastName,jdbcType=VARCHAR},
+      </if>
+      <if test="firstName != null" >
+        #{firstName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bobo.shopping.manage.dao.shopping.bean.UserUser">
+    update user_user
+    <set >
+      <if test="cid != null" >
+        cid = #{cid,jdbcType=CHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=TINYINT},
+      </if>
+      <if test="imgUrl != null" >
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="lastName != null" >
+        last_name = #{lastName,jdbcType=VARCHAR},
+      </if>
+      <if test="firstName != null" >
+        first_name = #{firstName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bobo.shopping.manage.dao.shopping.bean.UserUser" >
+   update user_user
+    set cid = #{cid,jdbcType=CHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=TINYINT},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      email = #{email,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      last_name = #{lastName,jdbcType=VARCHAR},
+      first_name = #{firstName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

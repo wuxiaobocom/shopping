@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+
+    <title>用户列表</title>
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html"/>
+    <![endif]-->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/font-awesome.css}">
+    <link rel="stylesheet" th:href="@{/css/animate.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+</head>
+
+<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
+    <div th:include="common :: common"></div>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="layui-col-md12">
+            <div class="layui-row grid-demo">
+                <div class="layui-col-md12">
+                    <div class="ibox-content">
+                        <form role="form" class="form-inline">
+                            <div class="form-group">
+                                <label for="name" class="sr-only">姓名</label>
+                                <input type="text" placeholder="请输入用户名" id="name" name="name" class="form-control">
+                            </div>
+                            <button class="btn btn-white" type="button" id="btn-submit">查询</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="layui-col-md12">
+                    <table id="userTable" lay-filter="test"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        layui.use('table', function(){
+            var arr = [{field: 'id', title: 'ID',  sort: true, fixed: 'left'}
+                ,{field: 'nickName', title: '昵称'}
+                ,{field: 'phone', title: '电话', sort: true}
+                ,{field: 'gender', title: '性别'}
+                ,{field: 'imgUrl', title: '头像',templet: function(d){
+                        return '<img src="'+d.imgUrl+'" style="width: 100px;height:100px"/>'
+                    }}
+                ,{field: 'createTime', title: '创建时间'}
+                ,{field: 'email', title: '邮箱地址'}
+                ,{field: 'id', title: '姓名',templet: function(d){
+                        return d.lastName+d.firstName
+                    }}
+                ,{field: 'id', title: '编辑',templet: function(d){
+                        var html = '<a class="layui-btn layui-btn-normal" href="">编辑</a>&nbsp;&nbsp;' +
+                            '<a  class="layui-btn layui-btn-danger" href="">删除</a>';
+                        return html;
+                    }}]
+            var table = layui.table;
+            table.render({
+                 elem: '#userTable'
+                ,url: '/user/userListData' //数据接口
+                ,page: true //开启分页
+                ,toolbar : true
+                ,loading : true //是否显示加载条（默认：true）
+                ,cols: [arr]
+            });
+            $("#btn-submit").click(function () {
+                var name = $("input[name=name]").val();
+                table.reload('testL' +
+                    'ist', {
+                    //设定异步数据接口的额外参数，任意设
+                    where: {
+                        "name": name
+                    }
+                    ,page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                });
+            })
+        });
+    </script>
+</body>
+
+</html>

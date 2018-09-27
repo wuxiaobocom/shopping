@@ -105,4 +105,24 @@ public class CheckNotNull {
         }
         return null;
     }
+
+    /**
+     * 判断页面传过过来的page
+     */
+    public static int getPage(Integer page) {
+        if (page == null) {
+            return ManageConstant.DEFAULT_PAGE;
+        }
+        return page -1;
+    }
+
+    /**
+     * 判断页面传过来的size
+     */
+    public static int getLimit (Integer limit) {
+      if (limit == null) {
+          return  ManageConstant.DEFAULT_LIMIT;
+      }
+      return limit;
+    }
 }

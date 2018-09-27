@@ -33,7 +33,7 @@ public class ResultInfo {
         return new ResultInfo(responseCode.FIAL,0,new ArrayList<>(),"");
     }
 
-    static class responseCode {
+    public static class responseCode {
         /**
          * 表示返回成功
          */
